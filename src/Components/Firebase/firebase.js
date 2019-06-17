@@ -36,7 +36,8 @@ class Firebase {
      this.auth.signInWithPopup(this.googleProvider);
 
      doSignInWithFacebook= () =>
-   this.auth.signInWithPopup(this.facebookProvider);
+
+     this.auth.signInWithPopup(this.facebookProvider);
 
     doSignOut = () => this.auth.signOut();
 
@@ -70,6 +71,7 @@ class Firebase {
             email: authUser.email,
             emailVerified: authUser.emailVerified,
             providerData: authUser.providerData,
+            photoURL: authUser.photoURL, 
             ...dbUser,
           };
 
@@ -92,4 +94,4 @@ class Firebase {
 
 
 
-export default Firebase 
+export default Firebase    

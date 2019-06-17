@@ -6,6 +6,7 @@ import {AuthUserContext, withAuthorization , withEmailVerification} from '../../
 import { withFirebase } from '../Firebase';
 import Navigation from '../Navigation';
 import './home.css'
+import { pathToFileURL } from 'url';
 
 
 const HomePage = () => (
@@ -83,7 +84,8 @@ class MessagesBase extends Component {
              text: this.state.text, 
              userId: authUser.uid,
              userName :authUser.username,
-             createdAt: this.props.firebase.serverValue.TIMESTAMP
+             createdAt: this.props.firebase.serverValue.TIMESTAMP,
+             photoURL: authUser.photoURL,
             });
 
             this.setState({ text: '' })
@@ -210,7 +212,9 @@ return (
         value={editText} 
         onChange={this.onChangeEditText} /> 
         ) : (
-        <span>
+        <span> 
+
+         <img src = {message.photoURL} alt = "user"></img>   
 
           {/* //Cambie UserName */}
         <strong>{message.userName}</strong> {message.text} 
