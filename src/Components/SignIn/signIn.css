@@ -11,7 +11,7 @@
   
   .logIn-form{
   background-color: white;
-  width: 600px;
+  width: 530px;
   height: 500px;
   border-radius: 20px;
   
@@ -78,7 +78,7 @@
  
   .right {
     right: 0;
-    background-color: #2d6dec;
+    background-color: black;
   }
   
  

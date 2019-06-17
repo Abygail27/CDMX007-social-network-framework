@@ -35,8 +35,7 @@ class Firebase {
      this.auth.signInWithPopup(this.googleProvider);
 
      doSignInWithFacebook= () =>
-
-     this.auth.signInWithPopup(this.facebookProvider);
+   this.auth.signInWithPopup(this.facebookProvider);
 
     doSignOut = () => this.auth.signOut();
 

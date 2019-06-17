@@ -20,7 +20,7 @@ const NavigationAuth = () => (
 
       {/* <li><Link to={ROUTES.SIGN_UP}>Registrarse</Link></li>
         <li><Link to={ROUTES.SIGN_IN}>Entrar</Link></li> */}
-        {/* <li> <Link to={ROUTES.LANDING}>Foro</Link></li> */}
+        {/*g <li> <Link to={ROUTES.LANDING}>Foro</Link></li> */}
         <li> <Link to={ROUTES.HOME}>Home</Link></li>
         <li><Link to={ROUTES.ADMIN}>Mi Perfil</Link></li>
         <li><Link to={ROUTES.ACCOUNT}>Account</Link></li>
