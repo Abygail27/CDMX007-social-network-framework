@@ -147,8 +147,7 @@ class SignInGoogleBase extends Component {
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
 
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
+        this.setState({ error });
       });
 
     event.preventDefault();
@@ -193,8 +192,7 @@ class SignInFacebookBase extends Component {
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
 
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
+        this.setState({ error });
       });
 
     event.preventDefault();
