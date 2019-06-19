@@ -6,15 +6,23 @@ import {AuthUserContext, withAuthorization , withEmailVerification} from '../../
 import { withFirebase } from '../Firebase';
 import Navigation from '../Navigation';
 import './home.css'
-import { pathToFileURL } from 'url';
 
 
+ 
 const HomePage = () => (
 
 
 
 <div>
+
+<section id = "topnav">
 <Navigation/>
+ <input type="text" id = "search" placeholder="Search.."/>
+</section>
+
+ 
+
+
 <div id =  "banner-user">
 
 <h1>Home Page</h1>
@@ -27,6 +35,8 @@ const HomePage = () => (
 </div>
 
 </div>
+
+
 
 );
 
@@ -214,7 +224,7 @@ return (
         ) : (
         <span> 
 
-         <img src = {message.photoURL} alt = "user"></img>   
+         <img src = {message.photoURL} alt = "user"  width = "60hv"></img>   
 
           {/* //Cambie UserName */}
         <strong>{message.userName}</strong> {message.text} 

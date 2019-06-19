@@ -1,4 +1,22 @@
 #banner-user{
-    background-color: black;
+    background-color: cornflowerblue;
 }
 
+
+#topnav{
+  background-color: red;
+    
+    color:white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    
+}
+
+#search{
+
+    border: 1px solid #ccc;
+    height: 30px;
+    width: 300px;
+}
