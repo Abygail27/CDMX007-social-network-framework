@@ -11,13 +11,11 @@ import './home.css'
  
 const HomePage = () => (
 
-
-
 <div>
 
 <section id = "topnav">
+
 <Navigation/>
- <input type="text" id = "search" placeholder="Search.."/>
 </section>
 
  
@@ -25,9 +23,9 @@ const HomePage = () => (
 
 <div id =  "banner-user">
 
-<h1>Home Page</h1>
+<h1>Link Up</h1>
 
-<p>The Home Page is accessible by every signed in user.</p>
+<p>Sharing awesome ideas, help you grow.</p>
 
 </div>
 <div>
@@ -124,12 +122,19 @@ onNextPage = () => { this.setState( state =>
         {authUser => (
         <div>
             
-            <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-        <input 
+            <form onSubmit={event => this.onCreateMessage(event, authUser)} id = "post-form">
+        <input id = "post"
         type="text" 
-        value={text} 
-        onChange={this.onChangeText} /> 
-        <button type="submit">Send</button> 
+        value={text}
+        placeholder = "share your ideas..."
+        onChange={this.onChangeText}/> 
+       
+        <div id = "extra-tools">
+        <i class="material-icons">add_location</i>   
+        <i class="material-icons">add_a_photo</i>
+        <button type="submit" id = "post-btn" className = "waves-effect waves-light btn">Post</button> 
+        
+        </div>
         </form>
              
         {messages ? (
@@ -222,37 +227,55 @@ return (
         value={editText} 
         onChange={this.onChangeEditText} /> 
         ) : (
+            
         <span> 
+  
+ <div id = "post-container">
+         <div className ="row">
+    <div className = "old-post-card">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
 
-         <img src = {message.photoURL} alt = "user"  width = "60hv"></img>   
 
-          {/* //Cambie UserName */}
-        <strong>{message.userName}</strong> {message.text} 
-        {message.editedAt && <span>(Edited)</span>}
-        </span>
-     )}
-     {authUser.uid === message.userId && ( 
-        <span>
-        {editMode ?  (
-            <span>
-            <button onClick={this.onSaveEditText}>Save</button> 
-            <button onClick={this.onToggleEditMode}>Reset</button>
-            </span>
-            ) : (
-        <button onClick={this.onToggleEditMode}>Edit</button>
-        )}
-        {!editMode && (
-        <button type="button"  onClick={() => onRemoveMessage(message.uid)} 
-        > Delete 
-        </button> 
-        )} 
-        </span>
-        )}
-        </li> 
-        );
+
+          <span class="card-title"> <img src = {message.photoURL} id = "img-user" alt = "user"  width = "60hv"></img>   </span>
+          <p> <strong>{message.userName}</strong> {message.text} 
+        {message.editedAt && <span>(Edited)</span>}</p>
+
+          
+      {authUser.uid === message.userId && ( 
+          <div className="card-action">
+         <span>
+         {editMode ?  (
+             <span>
+             <button onClick={this.onSaveEditText}>Save</button> 
+             <button onClick={this.onToggleEditMode}>Reset</button>
+             </span>
+             ) : (
+         <button onClick={this.onToggleEditMode}>Edit</button>
+         )}
+         {!editMode && (
+         <button type="button"  onClick={() => onRemoveMessage(message.uid)} 
+         > Delete 
+         </button> 
+         )} 
+         </span>
+         </div>
+         )}
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  </span>
+  )}
+  
+     </li> 
+     );
 }
 }
-
 
         const Messages = withFirebase(MessagesBase)       
 

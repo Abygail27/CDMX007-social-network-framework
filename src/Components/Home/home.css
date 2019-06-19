@@ -1,22 +1,82 @@
 #banner-user{
-    background-color: cornflowerblue;
+    background-color: lightseagreen;
+    color: white;
+   text-align: center;
+   font-family: 'Heebo', sans-serif;
 }
 
 
-#topnav{
-  background-color: red;
-    
-    color:white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    
-}
+
 
 #search{
 
     border: 1px solid #ccc;
     height: 30px;
     width: 300px;
+    float: left;
+  margin-top: 20px;
+    
+}
+.nav-wrapper{
+    background-color: lightseagreen;
+
+}
+#nav-mobile{
+    background-color: lightseagreen;
+}
+
+#post{
+    width: 500px;
+    border: 1px solid #ccc;
+    
+}
+
+#post-form{
+   
+    margin-top: 30px;
+   margin-left: 390px;
+}
+
+#extra-tools{
+    background-color: gray;
+    width: 500px;
+    height: 55px;
+}
+
+#post-btn{
+    border-radius: 4px;
+    width: 80px;
+    margin-left: 350px;
+    color: white;
+    background-color:  lightseagreen;
+  
+
+}
+
+i{
+    color: white;
+    margin-top: 10px;
+  margin-left: 10px;
+}
+
+#sign-out{
+background-color: gray;
+}
+
+#img-user{
+    border-radius: 50%;
+}
+
+li{
+    width: 590px;
+   
+}
+
+#row{
+    padding-left: 35px;
+    background-color: red;
+}
+
+#user-name{
+    font-size: 30vh;
 }

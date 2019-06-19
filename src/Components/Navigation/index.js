@@ -19,23 +19,28 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <ul>
-   
-    <li>
+  <nav>
+  <div class="nav-wrapper">
+     <input type="text" id = "search" placeholder="Search.."/>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+      <li>
       <Link to={ROUTES.HOME}>Home</Link>
     </li>
-    <li>  
+        </li>
+        <li>
+      <li>
       <Link to={ROUTES.ACCOUNT}>Account</Link>
     </li>
-    {/* {!!authUser.roles[ROLES.ADMIN] && (
+        </li>
+        <li>
       <li>
-        <Link to={ROUTES.ADMIN}>Admin</Link>
-      </li>
-    )} */}
-    <li>
-      <SignOutButton />
+      <SignOutButton/>
     </li>
-  </ul>
+        </li>
+    </ul>
+  </div>
+</nav>
 );
 
 const NavigationNonAuth = () => (
