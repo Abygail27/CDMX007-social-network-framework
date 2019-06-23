@@ -1,40 +1,30 @@
-
 // import React from 'react';
 import React, { Component } from 'react'
 import { compose } from 'recompose';
 import {AuthUserContext, withAuthorization , withEmailVerification} from '../../Components/Session'
 import { withFirebase } from '../Firebase';
-import Navigation from '../Navigation';
-import './home.css'
+import './home.css';
+import Modal from 'react-responsive-modal';
 
 
- 
+
 const HomePage = () => (
 
-<div>
+ <div id = "entrance">
 
-<section id = "topnav">
-
-<Navigation/>
-</section>
-
- 
-
-
-<div id =  "banner-user">
-
-<h1>Link Up</h1>
-
-<p>Sharing awesome ideas, help you grow.</p>
-
-</div>
-<div>
-<Messages/>
-</div>
-
+<div id = "banner">
+<h3 className='logo-link-up-banner center'>Link up!</h3>
 </div>
 
 
+
+<div className = "home-box">
+    
+    <Messages/>
+
+</div>
+
+</div> 
 
 );
 
@@ -47,6 +37,9 @@ class MessagesBase extends Component {
         loading: false, 
         messages: [], 
         limit: 5,
+        like:0,
+       
+        
     };
     }
 
@@ -59,6 +52,8 @@ class MessagesBase extends Component {
         .messages()
         .orderByChild('createdAt')
         .limitToLast(this.state.limit)
+       
+        
 
         .on('value', snapshot => { 
             const messageObject = snapshot.val()
@@ -85,18 +80,31 @@ class MessagesBase extends Component {
     }
 
     onChangeText = event => { 
-        this.setState({ text: event.target.value });
+       
+       
+            this.setState({ text: event.target.value });
+            console.log(this.state.text)
+     
+        
      };
+
      onCreateMessage = (event, authUser) => { 
-         this.props.firebase.messages().push({ 
-             text: this.state.text, 
-             userId: authUser.uid,
-             userName :authUser.username,
-             createdAt: this.props.firebase.serverValue.TIMESTAMP,
-             photoURL: authUser.photoURL,
-            });
+         if(this.state.text === ''){
+            alert("Empty message")
+
+            }else{
+                
+                this.props.firebase.messages().push({ 
+                    text: this.state.text, 
+                    userId: authUser.uid,
+                    userName :authUser.username,
+                    photoURL:authUser.photoURL,
+                    contador:parseInt(this.state.like),
+                    createdAt: this.props.firebase.serverValue.TIMESTAMP });
+            }
 
             this.setState({ text: '' })
+            this.setState({ contador: 0 })
 
             event.preventDefault()
         };
@@ -114,27 +122,21 @@ onNextPage = () => { this.setState( state =>
      ({ limit: state.limit + 5 }), 
      this.onListenForMessages, ); 
     };
+
+    
     render(){
-        const { text, messages, loading } = this.state  
+        const { text, messages, loading} = this.state  
     
     return ( 
         <AuthUserContext.Consumer> 
         {authUser => (
         <div>
-            
-            <form onSubmit={event => this.onCreateMessage(event, authUser)} id = "post-form">
-        <input id = "post"
-        type="text" 
-        value={text}
-        placeholder = "share your ideas..."
-        onChange={this.onChangeText}/> 
+        <form onSubmit={event => 
+
+        this.onCreateMessage(event, authUser)        
+        }>
+        <input type="text" id = "post-form" placeholder="What's on your mind?" value={text} onChange={this.onChangeText} />  
        
-        <div id = "extra-tools">
-        <i class="material-icons">add_location</i>   
-        <i class="material-icons">add_a_photo</i>
-        <button type="submit" id = "post-btn" className = "waves-effect waves-light btn">Post</button> 
-        
-        </div>
         </form>
              
         {messages ? (
@@ -143,6 +145,8 @@ onNextPage = () => { this.setState( state =>
               messages={messages} 
               onEditMessage={this.onEditMessage}
              onRemoveMessage={this.onRemoveMessage}
+            //  sumar={this.sumar}
+             
              /> 
              ) : (
             <div>There are no messages...</div>
@@ -171,28 +175,23 @@ const MessageList = ({ authUser, messages, onEditMessage, onRemoveMessage }) =>
     message={message} 
     onEditMessage={onEditMessage}
     onRemoveMessage={onRemoveMessage}
+    
+    
         />
      ))} 
      </ul> 
      );
 
-    //  const MessageItem = ({ message, onRemoveMessage }) => (
-    //       <li> 
-    //     <strong>{message.userId}</strong> {message.text} 
-    //     <button 
-    //     type="button" 
-    //     onClick={() => onRemoveMessage(message.uid)} >
-    //          Delete 
-    //          </button>
-    //     </li> 
-    //     );
     
 class MessageItem extends Component { 
     constructor(props) {
          super(props);
      this.state = { 
          editMode: false, 
-         editText: this.props.message.text, };
+         editText: this.props.message.text,
+         contadorlike: parseInt(this.props.message.contador),
+         open:false,
+    };
     }  
     onToggleEditMode = () => { 
     this.setState(state => ({ 
@@ -201,8 +200,7 @@ class MessageItem extends Component {
 }));
  }; 
  onChangeEditText = event => { 
-     this.setState({ editText: event.target.value 
-    }); 
+     this.setState({ editText: event.target.value}); 
 };
 
 
@@ -212,70 +210,128 @@ class MessageItem extends Component {
           ...messageSnapshot, text, }); }
 
 onSaveEditText = () => { 
-       this.props.onEditMessage(this.props.message,  this.state.editText
+    this.props.onEditMessage(this.props.message,  this.state.editText
                 );
     this.setState({ editMode: false });
          }
+
+onChangeLike = event => { 
+        this.setState({contadorlike: event.target.dataset.contadorlike + 1} );
+    };
+
+sumar = () => { this.setState( state =>
+        ({ contadorlike: state.contadorlike + 1 }), 
+       ); 
+       };
+       onOpenModal = () => {
+        this.setState({ open: true });
+      };
+     
+      onCloseModal = () => {
+        this.setState({ open: false });
+      };
+
  render() { 
      const { authUser, message, onRemoveMessage } = this.props; 
-     const { editMode, editText } = this.state;
+     const { editMode, editText,contadorlike, open } = this.state;
 return ( 
     <li> 
         
         {editMode ? ( 
-        <input type="text" 
-        value={editText} 
-        onChange={this.onChangeEditText} /> 
+        
+            <div className="card-content">
+        <div className="col s12 m7">
+            <div className="card horizontal card-box ">
+                
+                <div className="post-card">
+                    <div className="post-img ">
+                    
+                    <img className="img-card" src={message.photoURL} alt=""></img>
+                        <strong className="item-name"> {message.userName}</strong>
+                        </div>
+                        <div>
+                    
+                    <input type="text" value={editText}  onChange={this.onChangeEditText} /> 
+
+                    </div>
+                    <div className="post-likes">
+                
+                        <button className="waves-effect waves-light btn btn-like" type="button" data-contadorlike={contadorlike} onClick={this.sumar}> {contadorlike}</button>
+                   
+                        {message.editedAt && <span>(Edited)</span>}
+
+                        </div>
+
+                        </div> 
+
+                    </div>  
+
+                 </div>    
+          </div> 
         ) : (
+    <div className="card-content">
+        <div className="col s12 m7">
+            <div className="card horizontal card-box ">
+                
+                <div className="post-card">
+                    <div className="post-img ">
+                    <img className="img-card" src={message.photoURL} alt=""></img>
+                        <strong className="item-name"> {message.userName}</strong>
+                        </div>
+                        <div>
+                    <p align="justify">{message.text} </p>
+
+                    </div>
+                    <div className="post-likes">
+                
+                        <button className="waves-effect waves-light btn btn-like" type="button" data-contadorlike={contadorlike} onClick={this.sumar}> {contadorlike}</button>
+                   
+                        {message.editedAt && <span>(Edited)</span>}
+
+                        </div>
+
+                        </div> 
+
+                    </div>  
+
+                 </div>    
+          </div>           
+
+
+     )}
+     {authUser.uid === message.userId && ( 
+        <span>
+        {editMode ?  (
+            <span>
+            <button className="waves-effect waves-light btn" onClick={this.onSaveEditText}>Save</button> 
+            <button className="waves-effect waves-light btn" onClick={this.onToggleEditMode}>Reset</button>
+
+            </span>
             
-        <span> 
-  
- <div id = "post-container">
-         <div className ="row">
-    <div className = "old-post-card">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
 
+            
+            ) : (
+        <button className="waves-effect waves-light btn " onClick={this.onToggleEditMode}>EDIT</button>
+        )}
+        {!editMode && (
+            <span>
+                    <button className="waves-effect waves-light btn" onClick={this.onOpenModal}>Delete</button>
+                    <Modal open={open} onClose={this.onCloseModal} center>
+                        <h1>are you sure?</h1>
+                    <button type="button" className="waves-effect waves-light btn margin-left"  onClick={() => onRemoveMessage(message.uid)} 
+        > Delete 
+        </button> 
 
-
-          <span class="card-title"> <img src = {message.photoURL} id = "img-user" alt = "user"  width = "60hv"></img>   </span>
-          <p> <strong>{message.userName}</strong> {message.text} 
-        {message.editedAt && <span>(Edited)</span>}</p>
-
-          
-      {authUser.uid === message.userId && ( 
-          <div className="card-action">
-         <span>
-         {editMode ?  (
-             <span>
-             <button onClick={this.onSaveEditText}>Save</button> 
-             <button onClick={this.onToggleEditMode}>Reset</button>
-             </span>
-             ) : (
-         <button onClick={this.onToggleEditMode}>Edit</button>
-         )}
-         {!editMode && (
-         <button type="button"  onClick={() => onRemoveMessage(message.uid)} 
-         > Delete 
-         </button> 
-         )} 
-         </span>
-         </div>
-         )}
-        </div>
-
-      </div>
-    </div>
-  </div>
-  </div>
-  
-  </span>
-  )}
-  
-     </li> 
-     );
+                    </Modal>
+                    </span>
+        )} 
+        </span>
+        )}
+        </li> 
+        );
 }
 }
+
 
         const Messages = withFirebase(MessagesBase)       
 

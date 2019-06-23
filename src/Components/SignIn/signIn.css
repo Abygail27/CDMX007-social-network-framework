@@ -10,20 +10,31 @@
   }
   
   .logIn-form{
-  background-color: white;
-  width: 530px;
-  height: 500px;
-  border-radius: 20px;
-  
+    background-color: white;
+    
+    width: 530px;
+    height: 500px;
+    border-radius: 20px;
+    
+    }
+  #sign-in-text{
+    padding-top: 20px;
+    font-size: 25px;
+  } 
+  .logo-link-up{
+    font-weight: bold;
+    margin-top:15px;
+    font-family: 'Leckerli One', cursive;
+    color: lightseagreen;
+    font-size: 80px;
   }
+
+  .slogan{
+    font-size: 60px;
+
+  }
+
  
-  #title-landing{
-     color: white;
-     font-family: 'Work Sans', sans-serif;
-     font-size: 34px;
-     align-self: auto;
-     margin-bottom: 5%;
-  }
  
   #email-input{
      width: 410px;
@@ -49,10 +60,11 @@
  margin-bottom: 22px;
  margin-left: 80px;
  border-radius: 34px; 
+ background-color: rgba(255, 0, 0, 0.802);
  
   }
  #divider{
-    margin-top: 140px;
+    margin-top: 40px;
     height: 10%;
     
  }
@@ -62,7 +74,7 @@
  margin-bottom: 22px;
  margin-left: 25px;
  border-radius: 34px; 
- 
+ background-color: royalblue;
   }
  
  
@@ -78,7 +90,7 @@
  
   .right {
     right: 0;
-    background-color: black;
+    background-color: white;
   }
   
  

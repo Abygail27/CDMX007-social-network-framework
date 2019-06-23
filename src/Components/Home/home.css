@@ -1,82 +1,87 @@
-#banner-user{
-    background-color: lightseagreen;
-    color: white;
-   text-align: center;
-   font-family: 'Heebo', sans-serif;
+.home-box{
+    padding:10%;
 }
 
-
-
-
-#search{
-
-    border: 1px solid #ccc;
-    height: 30px;
-    width: 300px;
-    float: left;
-  margin-top: 20px;
-    
-}
 .nav-wrapper{
     background-color: lightseagreen;
+}
+ul li a{
+    background-color: lightseagreen;   
+}
+#banner {
+   background-image: url(http://capechamber.co.za/wp-content/uploads/cache/images/2019/03/Women-Networking-Business/Women-Networking-Business-2985765640.jpg);
+   width: 100%;
 
-}
-#nav-mobile{
-    background-color: lightseagreen;
+   background-size: cover;
+   background-repeat: no-repeat;
+   padding-top: 100px;
+   
 }
 
-#post{
-    width: 500px;
-    border: 1px solid #ccc;
-    
+.sign-out-li{
+    background-color: lightseagreen;   
 }
+
+.logo-link-up-banner{
+    font-weight: bold;
+    align-content: center;
+    font-family: 'Leckerli One', cursive;
+    color: lightseagreen;
+    font-size: 80px;
+ padding-bottom: 1%;
+  }
+
 
 #post-form{
-   
+    width: 390px;
     margin-top: 30px;
    margin-left: 390px;
+   align-items: center;
+ 
 }
 
-#extra-tools{
-    background-color: gray;
-    width: 500px;
-    height: 55px;
+
+
+.card-box{
+    align-items: center;
+    padding:5%;
+    width: 495px;
+    height: 300px;
+    margin-left: 297px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+  flex-wrap: wrap;
+ 
+  align-items: center;
+}
+.img-card{
+    width: 20%;
+    border-radius: 100%;
+}
+.post-likes{
+    margin-left: 65%;
+}
+.post-card{
+    width:100%;
 }
 
-#post-btn{
-    border-radius: 4px;
-    width: 80px;
-    margin-left: 350px;
-    color: white;
-    background-color:  lightseagreen;
-  
-
+.post-img{
+    align-items: center;
+    display: flex;
 }
 
-i{
-    color: white;
-    margin-top: 10px;
-  margin-left: 10px;
+.item-name{
+    padding-left: 5%;
+    width:100%;
 }
 
-#sign-out{
-background-color: gray;
-}
-
-#img-user{
+.btn-like{
     border-radius: 50%;
+    box-shadow: 30px 10px 0 #d9534f;
 }
 
-li{
-    width: 590px;
-   
-}
-
-#row{
-    padding-left: 35px;
-    background-color: red;
-}
-
-#user-name{
-    font-size: 30vh;
+.margin-left{
+    margin-left:5%
 }
